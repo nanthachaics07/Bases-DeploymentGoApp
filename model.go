@@ -12,14 +12,12 @@ type Book struct {
 	Description string `json:"description"`
 }
 
-// getBooks retrieves all books
 func getBooks(db *gorm.DB, c *fiber.Ctx) error {
 	var books []Book
 	db.Find(&books)
 	return c.JSON(books)
 }
 
-// getBook retrieves a book by id
 func getBook(db *gorm.DB, c *fiber.Ctx) error {
 	id := c.Params("id")
 	var book Book
@@ -27,7 +25,6 @@ func getBook(db *gorm.DB, c *fiber.Ctx) error {
 	return c.JSON(book)
 }
 
-// createBook creates a new book
 func createBook(db *gorm.DB, c *fiber.Ctx) error {
 	book := new(Book)
 	if err := c.BodyParser(book); err != nil {
@@ -37,7 +34,6 @@ func createBook(db *gorm.DB, c *fiber.Ctx) error {
 	return c.JSON(book)
 }
 
-// updateBook updates a book by id
 func updateBook(db *gorm.DB, c *fiber.Ctx) error {
 	id := c.Params("id")
 	book := new(Book)
@@ -49,7 +45,6 @@ func updateBook(db *gorm.DB, c *fiber.Ctx) error {
 	return c.JSON(book)
 }
 
-// deleteBook deletes a book by id
 func deleteBook(db *gorm.DB, c *fiber.Ctx) error {
 	id := c.Params("id")
 	db.Delete(&Book{}, id)
